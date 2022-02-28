@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper">
+	<resultMap type="dto.MemberDTO" id="member">
+		<id column="MEM_ID" 		property="memId"/>
+		<result column="MEM_PW" 	property="memPw"/>
+		<result column="MEM_NAME" 	property="memName"/>
+		<result column="MEM_AGE" 	property="memAge"/>
+		<result column="GENDER" 	property="gender"/>
+		<result column="JOIN_DATE" 	property="joinDate"/>
+		<result column="IS_ADMIN" 	property="isAdmin"/>
+	</resultMap>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember">
+		INSERT INTO BOARD_MEMBER(
+			MEM_ID
+			, MEM_PW
+			, MEM_NAME
+			, MEM_AGE
+			, GENDER
+			, IS_ADMIN
+		) VALUES (
+			#{memId}
+			, #{memPw}
+			, #{memName}
+			, #{memAge}
+			, #{gender}
+			, 'N'
+		)
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,21 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
-
-import dto.BoardDTO;
 import dto.MemberDTO;
-import oracle.net.aso.m;
-import oracle.security.o3logon.b;
-import service.BoardService;
 import service.BoardServiceImpl;
+import service.MemberServiceImpl;
 
-@WebServlet("*.bo")
-public class BoardController extends HttpServlet {
+@WebServlet("*.me")
+public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardServiceImpl boardService = new BoardServiceImpl();
+	private MemberServiceImpl memberService = new MemberServiceImpl();
 	
-    public BoardController() {
+    public MemberController() {
         super();
     }
     
@@ -53,33 +47,32 @@ public class BoardController extends HttpServlet {
 		String contentPage = "";
 		boolean isRedirect = false;
 		
-		if(command.equals("/boardList.bo")) {
-			List<BoardDTO> list = boardService.selectBoardList();
-			int count = boardService.selectBoardCount();
-			
-			request.setAttribute("count", count);
-			request.setAttribute("list", list);
-			
-			contentPage = "board_list";
+		//회원가입 페이지로 이동
+		if(command.equals("/join.me")) {
+			contentPage = "join";
 		}
-		else if(command.equals("/regBoardForm.bo")) {
-			request.setAttribute("nowDate", getNowDateToString());
-			contentPage = "reg_board_form";
+		//회원가입 진행
+		else if(command.equals("/joinMember.me")) {
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			int age = Integer.parseInt(request.getParameter("age"));
+			String gender = request.getParameter("gender");
+			
+			MemberDTO memberDTO = new MemberDTO();
+			memberDTO.setMemId(id);
+			memberDTO.setMemPw(pw);
+			memberDTO.setMemName(name);
+			memberDTO.setMemAge(age);
+			memberDTO.setGender(gender);
+			
+			memberService.insertMember(memberDTO);
+			
+			path = "javascript/join_result.jsp";
 		}
-		else if(command.equals("/regBoard.bo")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			String writer = request.getParameter("writer");
-			
-			BoardDTO boardDTO = new BoardDTO();
-			boardDTO.setTitle(title);
-			boardDTO.setContent(content);
-			boardDTO.setWriter(writer);
-			
-			boardService.insertBoard(boardDTO);
-			
-			isRedirect = true;
-			path = "boardList.bo";
+		//로그인 페이지로 이동
+		else if(command.equals("/login.me")) {
+			contentPage = "login";
 		}
 		
 		request.setAttribute("contentPage", contentPage);

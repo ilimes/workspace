@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dto.BoardDTO;
+import dto.MemberDTO;
 
 public interface BoardService {
 	
@@ -14,6 +15,7 @@ public interface BoardService {
 	
 	//게시글 총 몇개인지 카운트
 	int selectBoardCount();
+	
 	
 }
 

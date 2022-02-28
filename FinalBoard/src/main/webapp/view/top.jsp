@@ -8,6 +8,7 @@
 <style type="text/css">
 .memberDiv{
 	text-align: right;
+	font-weight: bold;
 }
 .titleDiv{
 	text-align: center;
@@ -20,8 +21,8 @@ h1{
 </head>
 <body>
 <div class="memberDiv">
-	Login 
-	Join
+	<a href="login.me">Login </a>
+	<a href="join.me">Join</a>
 </div>
 <div class="titleDiv">
 	<h1>B O A R D</h1>

@@ -20,7 +20,7 @@
 			, TITLE
 			, CONTENT
 			, WRITER
-			, CREATE_DATE
+			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
 			, READ_CNT
 			, IS_PRIVATE
 			, BOARD_PW
@@ -51,6 +51,25 @@
 		SELECT NVL(MAX(BOARD_NUM), 0)
 		FROM BOARD
 	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember">
+		INSERT INTO BOARD_MEMBER(
+			MEM_ID
+			, MEM_PW
+			, MEM_NAME
+			, MEM_AGE
+			, GENDER
+			, IS_ADMIN
+		) VALUES (
+			#{memId}
+			, #{memPw}
+			, #{memName}
+			, #{memAge}
+			, #{gender}
+			, 'N'
+		)
+	</insert>
 	
 </mapper>
 

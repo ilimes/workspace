@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import dto.BoardDTO;
+import dto.MemberDTO;
 import sqlmap.SqlSessionManager;
 
 //db 기능을 실제로 구현하는 클래스
