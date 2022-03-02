@@ -16,14 +16,14 @@
 	font-style: italic;
 }
 input[type="text"]{
-	width: 100%;
+	width: 98%;
 	height: 30px;
 	border-radius: 6px;
 	border: 1px solid black;
 	outline: none;
 }
 input[type="password"]{
-	width: 100%;
+	width: 98%;
 	height: 30px;
 	border-radius: 6px;
 	border: 1px solid black;
@@ -37,10 +37,13 @@ h3{
 	font-weight: bold;
 	font-size: 24px;
 	text-align: center;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #cccccc;
 }
 .joinDiv{
 	background-color: #E1E1E1;
-	padding: 30px;
+	padding: 20px;
+	padding-bottom: 10px;
 	margin: 0 auto;
 	width: 400px;
 	border-radius: 20px;
@@ -48,6 +51,9 @@ h3{
 .red{
 	font-size: 13px;
 	color: red;
+}
+.btn{
+	width: 99%;
 }
 </style>
 </head>

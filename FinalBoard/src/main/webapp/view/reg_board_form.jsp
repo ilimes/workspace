@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,8 @@
 }
 .regDiv{
 	background-color: #E1E1E1;
-	padding: 30px;
+	padding: 20px;
+	padding-bottom: 10px;
 	margin: 0 auto;
 	width: 400px;
 	border-radius: 20px;
@@ -28,7 +30,7 @@
 	font-style: italic;
 }
 input[type="text"]{
-	width: 100%;
+	width: 98%;
 	height: 30px;
 	border-radius: 6px;
 	border: 1px solid black;
@@ -38,6 +40,11 @@ h3{
 	font-weight: bold;
 	font-size: 24px;
 	text-align: center;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #cccccc;
+}
+.btn{
+	width: 99%;
 }
 </style>
 </head>
@@ -56,7 +63,14 @@ h3{
 			</div>
 			<div>
 				<div>작성자</div>
-				<div><input type="text" name="writer"></div>
+				<c:choose>
+					<c:when test="${not empty sessionScope.loginInfo }">
+						<div><input type="text" name="writer" value="${sessionScope.loginInfo.memId }" readonly></div>
+					</c:when>
+					<c:otherwise>
+						<div><input type="text" name="writer"></div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<%-- <div>작성일 : <input type="date" name="createDate" value="${nowDate }" readonly="readonly"></div> --%>
 		</div>

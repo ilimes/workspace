@@ -18,6 +18,13 @@ public class MemberServiceImpl implements MemberService{
 		sqlSession.commit();
 		return result;
 	}
+
+	@Override
+	public MemberDTO login(MemberDTO memberDTO) {
+		MemberDTO result = sqlSession.selectOne("memberMapper.login", memberDTO);
+		sqlSession.commit();
+		return result;
+	}
 	
 }
 

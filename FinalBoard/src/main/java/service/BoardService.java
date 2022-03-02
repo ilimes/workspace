@@ -16,6 +16,9 @@ public interface BoardService {
 	//게시글 총 몇개인지 카운트
 	int selectBoardCount();
 	
+	void updateReadCnt(int boardNum);
+	
+	BoardDTO selectBoardDetail(BoardDTO boardDTO);
 	
 }
 

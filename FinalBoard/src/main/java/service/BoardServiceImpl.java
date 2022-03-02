@@ -31,7 +31,21 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int selectBoardCount() {
 		int result = sqlSession.selectOne("boardMapper.selectBoardCount");
+		sqlSession.commit();
 		return result;
+	}
+
+	@Override
+	public void updateReadCnt(int boardNum) {
+		sqlSession.update("boardMapper.updateReadCnt", boardNum);
+		sqlSession.commit();
+	}
+
+	@Override
+	public BoardDTO selectBoardDetail(BoardDTO boardDTO) {
+		BoardDTO boardDTO2 = sqlSession.selectOne("boardMapper.selectBoardDetail", boardDTO);
+		sqlSession.commit();
+		return boardDTO2;
 	}
 	
 }

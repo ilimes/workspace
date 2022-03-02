@@ -71,6 +71,25 @@
 		)
 	</insert>
 	
+	<!-- 조회수 증가 -->
+	<update id="updateReadCnt">
+		UPDATE BOARD
+		SET READ_CNT = READ_CNT + 1
+		WHERE BOARD_NUM = #{boardNum}
+	</update>
+	
+	<!-- 글 상세정보 -->
+	<select id="selectBoardDetail" resultMap="board">
+		SELECT BOARD_NUM
+			, TITLE
+			, CONTENT
+			, WRITER
+			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
+			, READ_CNT
+		FROM BOARD
+		WHERE BOARD_NUM = #{boardNum}
+	</select>
+	
 </mapper>
 
 

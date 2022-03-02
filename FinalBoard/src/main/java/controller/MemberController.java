@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import dto.MemberDTO;
 import service.BoardServiceImpl;
@@ -35,6 +37,9 @@ public class MemberController extends HttpServlet {
 		//한글 처리(인코딩)
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		//세션 선언
+		HttpSession session = request.getSession();
 
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
@@ -73,6 +78,39 @@ public class MemberController extends HttpServlet {
 		//로그인 페이지로 이동
 		else if(command.equals("/login.me")) {
 			contentPage = "login";
+		}
+		//로그인 기능
+		else if(command.equals("/loginMember.me")) {
+			String memId = request.getParameter("id");
+			String memPw = request.getParameter("pw");
+			
+			MemberDTO memberDTO = new MemberDTO();
+			memberDTO.setMemId(memId);
+			memberDTO.setMemPw(memPw);
+			
+			MemberDTO result = memberService.login(memberDTO);
+			
+			//로그인이 실패하면 result에는 null이 들어가 있어요.
+			//로그인 성공하면 로그인 회원의 아이디와 이름 정보가 있다.
+			
+			//!= null은 로그인 성공했다는 뜻
+			if(result != null) {
+				//로그인 성공한 회원의 id와 이름 정보를 session에 넣는다.
+				session.setAttribute("loginInfo", result);
+				
+			}
+			
+			request.setAttribute("result", result);
+			
+			path = "view/login_result.jsp";
+		}
+		//로그아웃
+		else if(command.equals("/logout.me")) {
+			//세션 지우기
+			session.removeAttribute("loginInfo");
+			
+			isRedirect = true;
+			path = "boardList.bo";
 		}
 		
 		request.setAttribute("contentPage", contentPage);

@@ -81,6 +81,19 @@ public class BoardController extends HttpServlet {
 			isRedirect = true;
 			path = "boardList.bo";
 		}
+		else if(command.equals("/boardDetail.bo")) {
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+			boardService.updateReadCnt(boardNum);
+			
+			BoardDTO boardDTO = new BoardDTO();
+			boardDTO.setBoardNum(boardNum);
+			
+			BoardDTO result = boardService.selectBoardDetail(boardDTO);
+			
+			request.setAttribute("board", result);
+			
+			contentPage = "board_detail";			
+		}
 		
 		request.setAttribute("contentPage", contentPage);
 		

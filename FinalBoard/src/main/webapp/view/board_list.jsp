@@ -72,7 +72,7 @@ tbody > tr:hover{
 						<c:forEach items="${list }" var="board">
 							<tr>
 								<td>${board.boardNum }</td>
-								<td>${board.title }</td>
+								<td><a href="boardDetail.bo?boardNum=${board.boardNum }">${board.title }</a></td>
 								<td>${board.writer }</td>
 								<td>${board.createDate }</td>
 								<td>${board.readCnt }</td>
@@ -85,7 +85,14 @@ tbody > tr:hover{
 		</table>
 	</div>
 	<div class="btnDiv">
-		<div class="btn" onclick="location.href='regBoardForm.bo';">등록</div>
+		<c:choose>
+			<c:when test="${not empty sessionScope.loginInfo }">
+				<div class="btn" onclick="location.href='regBoardForm.bo';">글쓰기</div>
+			</c:when>
+			<c:otherwise>
+				현재 로그아웃 상태입니다. 로그인 해주세요 :)
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 </body>
