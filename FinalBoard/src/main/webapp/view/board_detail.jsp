@@ -22,7 +22,9 @@
 		작성일 : ${board.createDate }<br><br>
 	</div>
 	<div class="btnDiv">
-		<div class="btn" onclick="location.href='boardList.bo';">뒤로가기</div>
+		<div class="btn" onclick="location.href='boardList.bo';">뒤로가기</div> 
+		<div class="btn" onclick="location.href='';">수정</div> 
+		<div class="btn" onclick="location.href='deleteBoard.bo?boardNum=${board.boardNum }';">삭제</div>
 	</div>
 </div>
 </body>

@@ -47,6 +47,14 @@ public class BoardServiceImpl implements BoardService{
 		sqlSession.commit();
 		return boardDTO2;
 	}
+
+	@Override
+	public void deleteBoard(int boardNum) {
+		sqlSession.delete("boardMapper.deleteBoard", boardNum);
+		sqlSession.commit();
+	}
+	
+	
 	
 }
 

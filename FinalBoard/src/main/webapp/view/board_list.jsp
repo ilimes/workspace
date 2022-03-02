@@ -6,35 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-table{
-	width: 800px;
-	border-collapse: collapse;
-}
-thead{
-	border-top: 2px solid #105084;
-	border-bottom: 1px solid #D3D3D3;
-	background-color: #F7F7F7;
-	text-align: center;
-	font-weight: bold;
-}
-tbody{
-	text-align: center;
-}
-tbody > tr > td:nth-child(2){
-	text-align: left;
-}
-tr, td{
-	height: 40px;
-	border-bottom: 1px solid #D3D3D3;
-}
-tbody > tr:nth-child(even){
-	background-color: #E1E1E1;
-}
-tbody > tr:hover{
-	background-color: #3276AC;
-}
-</style>
+<link href="css/board_list.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">

@@ -94,6 +94,13 @@ public class BoardController extends HttpServlet {
 			
 			contentPage = "board_detail";			
 		}
+		else if(command.equals("/deleteBoard.bo")) {
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+			
+			boardService.deleteBoard(boardNum);
+			
+			path = "javascript/delete_result.jsp";			
+		}
 		
 		request.setAttribute("contentPage", contentPage);
 		

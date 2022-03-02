@@ -48,7 +48,7 @@
 	
 	<!-- 글 몇개인지 -->
 	<select id="selectBoardCount" resultType="int">
-		SELECT NVL(MAX(BOARD_NUM), 0)
+		SELECT COUNT(BOARD_NUM)
 		FROM BOARD
 	</select>
 	
@@ -89,6 +89,13 @@
 		FROM BOARD
 		WHERE BOARD_NUM = #{boardNum}
 	</select>
+	
+	<!-- 글 삭제하기 -->
+	<delete id="deleteBoard">
+		DELETE BOARD
+		WHERE BOARD_NUM = #{boardNum}
+	</delete>
+	
 	
 </mapper>
 

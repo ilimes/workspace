@@ -6,47 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.inputDiv{
-	width: 300px;
-	margin: 0 auto;
-	line-height: 1.8em;
-}
-.regDiv{
-	background-color: #E1E1E1;
-	padding: 20px;
-	padding-bottom: 10px;
-	margin: 0 auto;
-	width: 400px;
-	border-radius: 20px;
-}
-.inputDiv{
-	width: 400px;
-	margin: 0 auto;
-	line-height: 1.8em;
-}
-.inputDiv div:first-child{
-	font-weight: bold;
-	font-style: italic;
-}
-input[type="text"]{
-	width: 98%;
-	height: 30px;
-	border-radius: 6px;
-	border: 1px solid black;
-	outline: none;
-}
-h3{
-	font-weight: bold;
-	font-size: 24px;
-	text-align: center;
-	padding-bottom: 20px;
-	border-bottom: 2px solid #cccccc;
-}
-.btn{
-	width: 99%;
-}
-</style>
+<link href="css/reg_board_form.css" rel="stylesheet">
 </head>
 <body>
 <form action="regBoard.bo" method="post" name="regForm">

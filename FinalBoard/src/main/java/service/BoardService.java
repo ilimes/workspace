@@ -20,6 +20,8 @@ public interface BoardService {
 	
 	BoardDTO selectBoardDetail(BoardDTO boardDTO);
 	
+	void deleteBoard(int boardNum);
+	
 }
 
 
