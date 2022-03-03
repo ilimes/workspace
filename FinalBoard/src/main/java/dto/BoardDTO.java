@@ -10,6 +10,8 @@ public class BoardDTO {
 	private String isPrivate;
 	private String boardPw;
 	private String attachedName;
+	private String searchKeyword;
+	private String searchValue;
 	
 	public int getBoardNum() {
 		return boardNum;
@@ -65,6 +67,19 @@ public class BoardDTO {
 	public void setAttachedName(String attachedName) {
 		this.attachedName = attachedName;
 	}
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	public String getSearchValue() {
+		return searchValue;
+	}
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+	
 	
 	
 	

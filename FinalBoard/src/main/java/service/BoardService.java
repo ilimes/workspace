@@ -8,7 +8,7 @@ import dto.MemberDTO;
 public interface BoardService {
 	
 	//게시글 목록 조회
-	List<BoardDTO> selectBoardList();
+	List<BoardDTO> selectBoardList(BoardDTO boardDTO);
 	
 	//글 등록
 	void insertBoard(BoardDTO boardDTO);
@@ -21,6 +21,8 @@ public interface BoardService {
 	BoardDTO selectBoardDetail(BoardDTO boardDTO);
 	
 	void deleteBoard(int boardNum);
+	
+	List<BoardDTO> searchBoard(String title);
 	
 }
 

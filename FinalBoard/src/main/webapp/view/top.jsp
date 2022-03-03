@@ -12,6 +12,8 @@
 	font-weight: bold;
 }
 .titleDiv{
+	font-family: 'TmoneyRoundWindExtraBold';
+	letter-spacing: -4px;
 	text-align: center;
 }
 h1{
@@ -34,7 +36,7 @@ h1{
 	</c:choose>
 </div>
 <div class="titleDiv">
-	<h1><a href="boardList.bo">B O A R D</a></h1>
+	<h1><a href="boardList.bo">게시판</a></h1>
 </div>
 </body>
 </html>

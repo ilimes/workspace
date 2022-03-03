@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService{
 	SqlSession sqlSession = sqlSessionFactory.openSession();
 	
 	@Override
-	public List<BoardDTO> selectBoardList() {
-		List<BoardDTO> list = sqlSession.selectList("boardMapper.selectBoardList");
+	public List<BoardDTO> selectBoardList(BoardDTO boardDTO) {
+		List<BoardDTO> list = sqlSession.selectList("boardMapper.selectBoardList", boardDTO);
 		sqlSession.commit();
 		return list;
 	}
@@ -52,6 +52,13 @@ public class BoardServiceImpl implements BoardService{
 	public void deleteBoard(int boardNum) {
 		sqlSession.delete("boardMapper.deleteBoard", boardNum);
 		sqlSession.commit();
+	}
+
+	@Override
+	public List<BoardDTO> searchBoard(String title) {
+		List<BoardDTO> list = sqlSession.selectList("boardMapper.searchTitle", title);
+		sqlSession.commit();
+		return list;
 	}
 	
 	

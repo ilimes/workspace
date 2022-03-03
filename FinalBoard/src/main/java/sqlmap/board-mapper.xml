@@ -26,6 +26,12 @@
 			, BOARD_PW
 			, ATTACHED_NAME
 		FROM BOARD
+		<if test="title != null and !title.equals('')">
+		WHERE UPPER(TITLE) LIKE '%'||UPPER(#{title})||'%'
+		</if>
+		<if test="writer != null and !writer.equals('')">
+		WHERE UPPER(WRITER) LIKE '%'||UPPER(#{writer})||'%'
+		</if>
 		ORDER BY BOARD_NUM DESC
 	</select>
 	
@@ -86,6 +92,9 @@
 			, WRITER
 			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
 			, READ_CNT
+			, IS_PRIVATE
+			, BOARD_PW
+			, ATTACHED_NAME
 		FROM BOARD
 		WHERE BOARD_NUM = #{boardNum}
 	</select>
@@ -96,6 +105,26 @@
 		WHERE BOARD_NUM = #{boardNum}
 	</delete>
 	
+	<!-- 글 수정하기 -->
+	<update id="updateBoard">
+		
+	</update>
+	
+	<!-- 검색기능 -->
+	<select id="searchTitle" resultMap="board">
+		SELECT BOARD_NUM
+			, TITLE
+			, CONTENT
+			, WRITER
+			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
+			, READ_CNT
+			, IS_PRIVATE
+			, BOARD_PW
+			, ATTACHED_NAME
+		FROM BOARD
+		WHERE TITLE LIKE '%'||#{title}||'%'
+		ORDER BY BOARD_NUM DESC
+	</select>
 	
 </mapper>
 

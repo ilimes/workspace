@@ -28,3 +28,36 @@ tbody > tr:hover{
 	font-size: 17px;
 	font-weight: bold;
 }
+.boardDiv{
+	font-weight: bold;
+	font-size: 14px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.searchTable{
+	width: 800px;
+	height: 36px;
+	text-align: center;
+}
+.searchTable input[type="text"]{
+	width: 98%;
+	border-radius: 6px;
+	height: 26px;
+	border: 1px solid black;
+}
+.searchTable input[type="submit"]{
+	width: 98%;
+	height: 28px;
+	border-radius: 6px;
+	outline: none;
+}
+.searchTable select{
+	width: 98%;
+	height: 28px;
+	border-radius: 6px;
+	outline: none;
+	border: 1px solid black;
+}
+.searchTable tr, td{
+	border-bottom: none;
+}

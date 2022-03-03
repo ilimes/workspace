@@ -35,6 +35,7 @@
 	<select id="login" resultMap="member">
 		SELECT MEM_ID
 			, MEM_NAME
+			, IS_ADMIN
 		FROM BOARD_MEMBER
 		WHERE MEM_ID = #{memId} 
 		AND MEM_PW = #{memPw}

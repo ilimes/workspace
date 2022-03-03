@@ -10,15 +10,31 @@
 </head>
 <body>
 <div class="container">
+	<!-- <form action="search.bo" method="post"> -->
+	<form action="boardList.bo" method="post">
+		<table class="searchTable">
+			<tr>
+				<td>
+					<select name="searchKeyword">
+						<option value="제목">제목</option>
+						<option value="작성자">작성자</option>
+					</select>
+				</td>
+				<td><input type="text" name="searchValue"></td>
+				<td><input type="submit" value="검색"></td>
+			</tr>
+		</table>
+	</form>
 	<div class="boardDiv">
-		총 ${count }건
+		<%-- 총 ${count }건 --%>
+		총 ${list.size() }건
 	</div>
 	<div>
 		<table>
 			<colgroup>
 				<col width="10%">
 				<col width="*">
-				<col width="10%">
+				<col width="15%">
 				<col width="15%">
 				<col width="10%">
 				<col width="15%">
@@ -41,9 +57,10 @@
 						</tr>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${list }" var="board">
+						<c:forEach items="${list }" var="board" varStatus="status">
 							<tr>
-								<td>${board.boardNum }</td>
+								<%-- <td>${board.boardNum } / ${status.index } / ${status.count }</td> --%>
+								<td>${list.size() - status.index }</td>
 								<td><a href="boardDetail.bo?boardNum=${board.boardNum }">${board.title }</a></td>
 								<td>${board.writer }</td>
 								<td>${board.createDate }</td>
@@ -62,7 +79,7 @@
 				<div class="btn" onclick="location.href='regBoardForm.bo';">글쓰기</div>
 			</c:when>
 			<c:otherwise>
-				현재 로그아웃 상태입니다. 로그인 해주세요 :)
+				<div class="boardDiv">현재 로그아웃 상태입니다. 로그인 해주세요 :)</div>
 			</c:otherwise>
 		</c:choose>
 	</div>

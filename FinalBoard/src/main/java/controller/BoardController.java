@@ -54,7 +54,18 @@ public class BoardController extends HttpServlet {
 		boolean isRedirect = false;
 		
 		if(command.equals("/boardList.bo")) {
-			List<BoardDTO> list = boardService.selectBoardList();
+			String searchKeyword = request.getParameter("searchKeyword");
+			String searchValue = request.getParameter("searchValue");
+			BoardDTO boardDTO = new BoardDTO();
+			
+			if(searchKeyword != null && searchKeyword.equals("제목")) {
+				boardDTO.setTitle(searchValue);
+			}
+			else {
+				boardDTO.setWriter(searchValue);
+			}
+			
+			List<BoardDTO> list = boardService.selectBoardList(boardDTO);
 			int count = boardService.selectBoardCount();
 			
 			request.setAttribute("count", count);
@@ -100,6 +111,28 @@ public class BoardController extends HttpServlet {
 			boardService.deleteBoard(boardNum);
 			
 			path = "javascript/delete_result.jsp";			
+		}
+		else if(command.equals("/updateBoardForm.bo")) {
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+			
+			BoardDTO boardDTO = new BoardDTO();
+			boardDTO.setBoardNum(boardNum);
+			
+			BoardDTO result = boardService.selectBoardDetail(boardDTO);
+			
+			request.setAttribute("board", result);
+			
+			contentPage = "modify_board";
+		}
+		//검색기능
+		else if(command.equals("/search.bo")) {
+			String title = request.getParameter("title");
+			
+			List<BoardDTO> searchList = boardService.searchBoard(title);
+			
+			request.setAttribute("list", searchList);
+			
+			contentPage = "board_list";
 		}
 		
 		request.setAttribute("contentPage", contentPage);
