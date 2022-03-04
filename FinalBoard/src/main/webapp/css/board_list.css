@@ -47,13 +47,13 @@ tbody > tr:hover{
 }
 .searchTable input[type="submit"]{
 	width: 98%;
-	height: 28px;
+	height: 32px;
 	border-radius: 6px;
 	outline: none;
 }
 .searchTable select{
 	width: 98%;
-	height: 28px;
+	height: 30px;
 	border-radius: 6px;
 	outline: none;
 	border: 1px solid black;

@@ -56,14 +56,17 @@ public class BoardController extends HttpServlet {
 		if(command.equals("/boardList.bo")) {
 			String searchKeyword = request.getParameter("searchKeyword");
 			String searchValue = request.getParameter("searchValue");
-			BoardDTO boardDTO = new BoardDTO();
 			
-			if(searchKeyword != null && searchKeyword.equals("제목")) {
-				boardDTO.setTitle(searchValue);
-			}
-			else {
-				boardDTO.setWriter(searchValue);
-			}
+			BoardDTO boardDTO = new BoardDTO();
+			boardDTO.setSearchKeyword(searchKeyword);
+			boardDTO.setSearchValue(searchValue);
+			
+//			if(searchKeyword != null && searchKeyword.equals("제목")) {
+//				boardDTO.setTitle(searchValue);
+//			}
+//			else {
+//				boardDTO.setWriter(searchValue);
+//			}
 			
 			List<BoardDTO> list = boardService.selectBoardList(boardDTO);
 			int count = boardService.selectBoardCount();

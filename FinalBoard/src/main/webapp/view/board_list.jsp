@@ -16,8 +16,8 @@
 			<tr>
 				<td>
 					<select name="searchKeyword">
-						<option value="제목">제목</option>
-						<option value="작성자">작성자</option>
+						<option value="TITLE">제목</option>
+						<option value="WRITER">작성자</option>
 					</select>
 				</td>
 				<td><input type="text" name="searchValue"></td>

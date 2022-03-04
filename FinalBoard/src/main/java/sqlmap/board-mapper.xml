@@ -26,11 +26,14 @@
 			, BOARD_PW
 			, ATTACHED_NAME
 		FROM BOARD
-		<if test="title != null and !title.equals('')">
+		<!-- <if test="title != null and !title.equals('')">
 		WHERE UPPER(TITLE) LIKE '%'||UPPER(#{title})||'%'
 		</if>
 		<if test="writer != null and !writer.equals('')">
 		WHERE UPPER(WRITER) LIKE '%'||UPPER(#{writer})||'%'
+		</if> -->
+		<if test="searchValue != null and !searchValue.equals('')">
+		WHERE UPPER(${searchKeyword}) LIKE '%'||UPPER(#{searchValue})||'%'
 		</if>
 		ORDER BY BOARD_NUM DESC
 	</select>

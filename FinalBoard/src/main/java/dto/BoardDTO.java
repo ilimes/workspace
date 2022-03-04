@@ -10,6 +10,8 @@ public class BoardDTO {
 	private String isPrivate;
 	private String boardPw;
 	private String attachedName;
+	
+	//검색을 위한 변수
 	private String searchKeyword;
 	private String searchValue;
 	
