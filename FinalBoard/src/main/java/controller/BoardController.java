@@ -10,11 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dto.BoardDTO;
 import dto.MemberDTO;
+import dto.ReplyDTO;
 import oracle.net.aso.m;
 import oracle.security.o3logon.b;
 import service.BoardService;
@@ -97,14 +99,16 @@ public class BoardController extends HttpServlet {
 		}
 		else if(command.equals("/boardDetail.bo")) {
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-			boardService.updateReadCnt(boardNum);
 			
 			BoardDTO boardDTO = new BoardDTO();
 			boardDTO.setBoardNum(boardNum);
 			
+			boardService.updateReadCnt(boardNum);
 			BoardDTO result = boardService.selectBoardDetail(boardDTO);
-			
+			List<ReplyDTO> replyList = boardService.selectReplyList(boardNum);
+
 			request.setAttribute("board", result);
+			request.setAttribute("replyList", replyList);
 			
 			contentPage = "board_detail";			
 		}
@@ -136,6 +140,32 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("list", searchList);
 			
 			contentPage = "board_list";
+		}
+		//댓글 등록
+		else if(command.equals("/regReply.bo")) {
+			String content = request.getParameter("content");
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+			HttpSession session = request.getSession();
+			String memId = ((MemberDTO)session.getAttribute("loginInfo")).getMemId();
+			
+			ReplyDTO replyDTO = new ReplyDTO();
+			replyDTO.setContent(content);
+			replyDTO.setBoardNum(boardNum);
+			replyDTO.setWriter(memId);
+			
+			boardService.insertReply(replyDTO);
+			
+			isRedirect = true;
+			path = "boardDetail.bo?boardNum=" + boardNum;
+		}
+		//댓글 삭제
+		else if(command.equals("/deleteReply.bo")) {
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+			int replyNum = Integer.parseInt(request.getParameter("replyNum"));
+			boardService.deleteReply(replyNum);
+			
+			isRedirect = true;
+			path = "boardDetail.bo?boardNum=" + boardNum;
 		}
 		
 		request.setAttribute("contentPage", contentPage);

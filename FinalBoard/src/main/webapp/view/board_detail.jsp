@@ -10,6 +10,31 @@
 .contentDiv{
 	line-height: 1.6em;
 }
+.replyDiv{
+	padding-top: 20px;
+}
+textarea{
+	resize: none;
+}
+.replyListDiv{
+	margin-top: 20px;
+	line-height: 1.2em;
+}
+.replyListDiv tr{
+
+}
+.replyListDiv table td > div:nth-child(1){
+	font-size: 14px;
+	font-weight: bold;
+}
+.replyListDiv table td > div:nth-child(2){
+	font-size: 14px;
+	color: #999999;
+}
+.replyListDiv table td > div:nth-child(3){
+	font-size: 16px;
+	margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
@@ -50,7 +75,44 @@
 		<c:if test="${(board.writer eq sessionScope.loginInfo.memId) or (sessionScope.loginInfo.isAdmin eq 'Y') }">
 			<div class="btn" onclick="location.href='deleteBoard.bo?boardNum=${board.boardNum }';">삭제</div>
 		</c:if>
-		
+	</div>
+	<div class="replyDiv">
+		<c:if test="${not empty sessionScope.loginInfo }">
+			<div class="regReply">
+				<form action="regReply.bo" method="post" name="replyForm">
+					<input type="hidden" name="boardNum" value="${board.boardNum }">
+					<div>
+						<textarea name="content" rows="3" cols="50" placeholder="댓글을 작성해주세요."></textarea>
+					</div>
+					<div>
+						<!-- <input type="button" value="댓글 등록"> --> 
+						<div class="btn" onclick="replyForm.submit();">댓글 등록</div>
+					</div>
+				</form>
+			</div>
+		</c:if>
+		<div class="replyListDiv">
+			<c:forEach items="${replyList }" var="reply">
+				<table>
+					<colgroup>
+						<col width="80%">
+						<col width="*">
+					</colgroup>
+					<tr>
+						<td>
+							<div>${reply.writer }</div>
+							<div>${reply.createDate }</div>
+							<div>${reply.content }</div>
+						</td>
+						<td>
+							<c:if test="${(reply.writer eq sessionScope.loginInfo.memId) or (sessionScope.loginInfo.isAdmin eq 'Y')}">
+								<input type="button" value="댓글 삭제" onclick="location.href='deleteReply.bo?boardNum=${reply.boardNum }&replyNum=${reply.replyNum }';">
+							</c:if>
+						</td>
+					</tr>
+				</table>
+			</c:forEach>
+		</div>
 	</div>
 </div>
 </body>

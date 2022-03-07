@@ -14,6 +14,14 @@
 		<result column="ATTACHED_NAME" 	property="attachedName"/>
 	</resultMap>
 	
+	<resultMap type="dto.ReplyDTO" id="reply">
+		<id column="REPLY_NUM" 			property="replyNum"/>
+		<result column="CONTENT"  		property="content"/>
+		<result column="WRITER"  		property="writer"/>
+		<result column="CREATE_DATE"  	property="createDate"/>
+		<result column="BOARD_NUM"  	property="boardNum"/>
+	</resultMap>
+	
 	<!-- 게시글 목록 조회 -->
 	<select id="selectBoardList" resultMap="board">
 		SELECT BOARD_NUM
@@ -128,6 +136,45 @@
 		WHERE TITLE LIKE '%'||#{title}||'%'
 		ORDER BY BOARD_NUM DESC
 	</select>
+	
+	<!-- 댓글 달기 -->
+	<insert id="insertReply">
+		INSERT INTO REPLY (
+			REPLY_NUM
+			, CONTENT
+			, WRITER
+			, BOARD_NUM			
+		) VALUES (
+			(SELECT NVL(MAX(REPLY_NUM), 0) + 1 FROM REPLY)
+			, #{content}
+			, #{writer}
+			, #{boardNum}
+		)
+	</insert>
+	
+	<!-- 댓글 목록 조회 -->
+	<select id="selectReplyList" resultMap="reply">
+		SELECT REPLY_NUM
+			, CONTENT
+			, WRITER
+			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD HH24:MI') AS CREATE_DATE
+			, BOARD_NUM
+		FROM REPLY
+		WHERE BOARD_NUM = #{boardNum}
+		ORDER BY REPLY_NUM DESC
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply">
+		DELETE REPLY
+		WHERE REPLY_NUM = #{replyNum}
+	</delete>
+	
+	<!-- 해당 글에 달린 댓글 다 지우기 -->
+	<delete id="deleteReplyForDeleteBoard">
+		DELETE REPLY
+		WHERE BOARD_NUM = #{boardNum}
+	</delete>
 	
 </mapper>
 
