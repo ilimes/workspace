@@ -166,6 +166,7 @@ public class BoardController extends HttpServlet {
 			
 			boardService.insertReply(replyDTO);
 			
+			
 			isRedirect = true;
 			path = "boardDetail.bo?boardNum=" + boardNum;
 		}
