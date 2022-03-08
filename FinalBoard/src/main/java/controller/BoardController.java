@@ -17,6 +17,7 @@ import org.apache.ibatis.session.SqlSession;
 import dto.BoardDTO;
 import dto.MemberDTO;
 import dto.ReplyDTO;
+import dto.PageDTO;
 import oracle.net.aso.m;
 import oracle.security.o3logon.b;
 import service.BoardService;
@@ -55,7 +56,15 @@ public class BoardController extends HttpServlet {
 		String contentPage = "";
 		boolean isRedirect = false;
 		
+		//게시글 목록 페이지로 이동
 		if(command.equals("/boardList.bo")) {
+			//현재 페이지 데이터
+			int nowPage = 1;
+			String nowPageStr = request.getParameter("nowPage");
+			if(nowPageStr != null) {
+				nowPage = Integer.parseInt(nowPageStr);
+			}
+			
 			String searchKeyword = request.getParameter("searchKeyword");
 			String searchValue = request.getParameter("searchValue");
 			
@@ -63,18 +72,20 @@ public class BoardController extends HttpServlet {
 			boardDTO.setSearchKeyword(searchKeyword);
 			boardDTO.setSearchValue(searchValue);
 			
-//			if(searchKeyword != null && searchKeyword.equals("제목")) {
-//				boardDTO.setTitle(searchValue);
-//			}
-//			else {
-//				boardDTO.setWriter(searchValue);
-//			}
+			//전체 데이터 수
+			int totalCnt = boardService.selectBoardListCnt(boardDTO);
+			
+			boardDTO.setTotalCnt(totalCnt);
+			boardDTO.setNowPage(nowPage);
+			boardDTO.setPageInfo();
+
+			
 			
 			List<BoardDTO> list = boardService.selectBoardList(boardDTO);
-			int count = boardService.selectBoardCount();
 			
-			request.setAttribute("count", count);
+			request.setAttribute("count", totalCnt);
 			request.setAttribute("list", list);
+			request.setAttribute("pageInfo", boardDTO);
 			
 			contentPage = "board_list";
 		}

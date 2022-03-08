@@ -14,8 +14,8 @@ public interface BoardService {
 	//글 등록
 	void insertBoard(BoardDTO boardDTO);
 	
-	//게시글 총 몇개인지 카운트
-	int selectBoardCount();
+	//게시글 개수 조회
+	int selectBoardListCnt(BoardDTO boardDTO);
 	
 	//조회수 증가
 	void updateReadCnt(int boardNum);

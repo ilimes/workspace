@@ -31,13 +31,6 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int selectBoardCount() {
-		int result = sqlSession.selectOne("boardMapper.selectBoardCount");
-		sqlSession.commit();
-		return result;
-	}
-
-	@Override
 	public void updateReadCnt(int boardNum) {
 		sqlSession.update("boardMapper.updateReadCnt", boardNum);
 		sqlSession.commit();
@@ -87,6 +80,13 @@ public class BoardServiceImpl implements BoardService{
 	public void deleteReply(int replyNum) {
 		sqlSession.delete("boardMapper.deleteReply", replyNum);
 		sqlSession.commit();
+	}
+	
+	@Override
+	public int selectBoardListCnt(BoardDTO boardDTO) {
+		int cnt = sqlSession.selectOne("boardMapper.selectBoardListCnt", boardDTO);
+		sqlSession.commit();
+		return cnt;
 	}
 	
 	

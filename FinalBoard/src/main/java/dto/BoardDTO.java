@@ -1,6 +1,6 @@
 package dto;
 
-public class BoardDTO {
+public class BoardDTO extends PageDTO{
 	private int boardNum;
 	private String title;
 	private String content;

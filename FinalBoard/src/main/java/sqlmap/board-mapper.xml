@@ -25,25 +25,41 @@
 	<!-- 게시글 목록 조회 -->
 	<select id="selectBoardList" resultMap="board">
 		SELECT BOARD_NUM
-			, TITLE
-			, CONTENT
-			, WRITER
-			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
-			, READ_CNT
-			, IS_PRIVATE
-			, BOARD_PW
-			, ATTACHED_NAME
-		FROM BOARD
-		<!-- <if test="title != null and !title.equals('')">
-		WHERE UPPER(TITLE) LIKE '%'||UPPER(#{title})||'%'
-		</if>
-		<if test="writer != null and !writer.equals('')">
-		WHERE UPPER(WRITER) LIKE '%'||UPPER(#{writer})||'%'
-		</if> -->
-		<if test="searchValue != null and !searchValue.equals('')">
-		WHERE UPPER(${searchKeyword}) LIKE '%'||UPPER(#{searchValue})||'%'
-		</if>
-		ORDER BY BOARD_NUM DESC
+		   	, TITLE
+		    , WRITER
+		    , CREATE_DATE
+		    , READ_CNT
+		    , ATTACHED_NAME
+		    , ROW_NUM
+		FROM
+		(
+		    SELECT BOARD_NUM
+	 	       , TITLE
+		       , WRITER
+		       , CREATE_DATE
+ 		       , READ_CNT
+ 		       , ATTACHED_NAME
+  		       , ROWNUM AS ROW_NUM
+  			FROM
+   			(
+   			    SELECT BOARD_NUM
+            		, TITLE
+   		         	, WRITER
+    		        , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
+    		        , READ_CNT
+     		        , ATTACHED_NAME
+        		FROM BOARD
+        		<if test="searchValue != null and !searchValue.equals('')">
+				WHERE UPPER(${searchKeyword}) LIKE '%'||UPPER(#{searchValue})||'%'
+				</if>
+        		ORDER BY BOARD_NUM DESC
+  	 		)	
+		)
+		WHERE ROW_NUM &gt;= #{startNum} AND ROW_NUM &lt;= #{endNum}
+	
+		<!-- < : &lt;  10 < 5  -->
+		<!-- > : &gt;  10 > 5  -->
+		
 	</select>
 	
 	<!-- 게시글 등록 -->
@@ -62,12 +78,6 @@
 		    , 'N'
 		)
 	</insert>
-	
-	<!-- 글 몇개인지 -->
-	<select id="selectBoardCount" resultType="int">
-		SELECT COUNT(BOARD_NUM)
-		FROM BOARD
-	</select>
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
@@ -175,6 +185,15 @@
 		DELETE REPLY
 		WHERE BOARD_NUM = #{boardNum}
 	</delete>
+	
+	<!-- 글 몇개인지 -->
+	<select id="selectBoardListCnt" resultType="int">
+		SELECT COUNT(BOARD_NUM)
+		FROM BOARD
+		<if test="searchValue != null and !searchValue.equals('')">
+		WHERE UPPER(${searchKeyword}) LIKE '%'||UPPER(#{searchValue})||'%'
+		</if>
+	</select>
 	
 </mapper>
 

@@ -26,8 +26,8 @@
 		</table>
 	</form>
 	<div class="boardDiv">
-		<%-- 총 ${count }건 --%>
-		총 ${list.size() }건
+		총 ${count }건
+		<%-- 총 ${list.size() }건 --%>
 	</div>
 	<div>
 		<table>
@@ -60,7 +60,8 @@
 						<c:forEach items="${list }" var="board" varStatus="status">
 							<tr>
 								<%-- <td>${board.boardNum } / ${status.index } / ${status.count }</td> --%>
-								<td>${list.size() - status.index }</td>
+								<%-- <td>${list.size() - status.index }</td> --%>
+								<td>${board.boardNum }</td>
 								<td><a href="boardDetail.bo?boardNum=${board.boardNum }">${board.title }</a></td>
 								<td>${board.writer }</td>
 								<td>${board.createDate }</td>
@@ -83,6 +84,19 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+</div>
+<div style="text-align: center; font-weight: bold;">
+	<c:if test="${pageInfo.prev }">
+		<a href="boardList.bo?nowPage=${pageInfo.beginPage - 1 }">이전</a>
+	</c:if>
+	<c:forEach begin="${pageInfo.beginPage }" end="${pageInfo.endPage }" var="pageIndex">
+		<a href="boardList.bo?nowPage=${pageIndex }">
+			<span <c:if test="${pageInfo.nowPage eq pageIndex }">style="color: red;"</c:if> >${pageIndex }</span>
+		</a>
+	</c:forEach>
+	<c:if test="${pageInfo.next }">
+		<a href="boardList.bo?nowPage=${pageInfo.endPage + 1 }">다음</a>
+	</c:if>
 </div>
 </body>
 </html>
