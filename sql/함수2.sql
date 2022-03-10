@@ -83,3 +83,49 @@ SELECT LPAD(NVL(MAX(TO_NUMBER(SUBSTR(REPLY_NUM, 7, 3))), 0) + 1, 3, '0') FROM RE
 SELECT 'REPLY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(REPLY_NUM, 7, 3))), 0) + 1, 3, '0') FROM REPLY2;
 
 DELETE REPLY2;
+
+-- GROUP BY 절
+-- 부서번호 별로 각 부서별 부서인원의 급여 합계를 조회
+SELECT DEPTNO, SUM(SAL)
+FROM EMP
+GROUP BY DEPTNO;
+
+-- 직급별로 각 직급의 급여의 평균과 인원수를 조회
+SELECT JOB, AVG(SAL), COUNT(EMPNO)
+FROM EMP
+GROUP BY JOB;
+
+-- 부서별 급여의 합을 구하는데 부서번호가 10번인 부서는 제외
+-- 부서번호 기준 오름차순 정렬
+SELECT DEPTNO, SUM(SAL)
+FROM EMP
+WHERE DEPTNO != 10
+GROUP BY DEPTNO
+ORDER BY DEPTNO ASC;
+
+-- 부서별 급여의 합을 구하는데, 부서번호가 10이 아니고, 부서별 급여의 합이 2000이상인
+-- 부서의 데이터만 조회, 부서번호기준 오름차순 정렬
+
+SELECT DEPTNO, SUM(SAL)
+FROM EMP
+WHERE DEPTNO != 10
+GROUP BY DEPTNO
+HAVING SUM(SAL) >= 2000
+ORDER BY DEPTNO ASC;
+
+-- 1. 모든 사원의 급여 최고액, 급여 최저액, 총액 및 평균 급여를 조회
+-- 단 평균은 반올림하여 정수로 표현하세요
+SELECT MAX(SAL), MIN(SAL), SUM(SAL), ROUND(AVG(SAL), 0)
+FROM EMP;
+
+-- 2. 직급별 평균 급여 및 평균 커미션을 조회하되,
+--    평균 급여 기준 내림차순 정렬
+-- 카운팅 할때 NULL 값을 안세기 때문에 NVL 써줘야한다.
+SELECT JOB, AVG(SAL), AVG(NVL(COMM, 0))
+FROM EMP
+GROUP BY JOB
+ORDER BY AVG(SAL) DESC;
+
+-- 3. 급여 최고액과 최저액의 차이를 조회
+SELECT MAX(SAL) - MIN(SAL) AS 최고액최저액차이
+FROM EMP;
