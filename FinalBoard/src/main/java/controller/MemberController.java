@@ -73,7 +73,7 @@ public class MemberController extends HttpServlet {
 			
 			memberService.insertMember(memberDTO);
 			
-			path = "javascript/join_result.jsp";
+			path = "view/join_result.jsp";
 		}
 		//로그인 페이지로 이동
 		else if(command.equals("/login.me")) {

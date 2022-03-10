@@ -128,7 +128,7 @@ public class BoardController extends HttpServlet {
 			
 			boardService.deleteBoard(boardNum);
 			
-			path = "javascript/delete_result.jsp";			
+			path = "view/delete_result.jsp";			
 		}
 		else if(command.equals("/updateBoardForm.bo")) {
 			int boardNum = Integer.parseInt(request.getParameter("boardNum"));

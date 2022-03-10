@@ -9,7 +9,7 @@
 <link href="css/reg_board_form.css" rel="stylesheet">
 </head>
 <body>
-<form action="regBoard.bo" method="post" name="regForm">
+<form action="regBoard.bo" method="post" name="regForm" id="boardWriteForm">
 	<div class="regDiv">
 		<div class="inputDiv">
 			<h3>게시글 등록</h3><br>
@@ -32,6 +32,9 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<div>
+				<div>비밀글 <input id="chk" type="checkbox" onclick="setPassword();"></div>
+			</div>
 			<%-- <div>작성일 : <input type="date" name="createDate" value="${nowDate }" readonly="readonly"></div> --%>
 		</div>
 		<div class="btnDiv">
@@ -39,5 +42,6 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript" src="javascript/reg_board.js"></script>
 </body>
 </html>
