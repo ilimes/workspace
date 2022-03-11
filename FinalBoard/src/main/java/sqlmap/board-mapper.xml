@@ -30,6 +30,7 @@
 		    , CREATE_DATE
 		    , READ_CNT
 		    , ATTACHED_NAME
+		    , IS_PRIVATE
 		    , ROW_NUM
 		FROM
 		(
@@ -39,6 +40,7 @@
 		       , CREATE_DATE
  		       , READ_CNT
  		       , ATTACHED_NAME
+		 	   , IS_PRIVATE
   		       , ROWNUM AS ROW_NUM
   			FROM
    			(
@@ -48,6 +50,7 @@
     		        , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
     		        , READ_CNT
      		        , ATTACHED_NAME
+     		        , IS_PRIVATE
         		FROM BOARD
         		<if test="searchValue != null and !searchValue.equals('')">
 				WHERE UPPER(${searchKeyword}) LIKE '%'||UPPER(#{searchValue})||'%'
@@ -69,13 +72,23 @@
 		    , TITLE
 		    , CONTENT
 		    , WRITER
+		    , BOARD_PW
 		    , IS_PRIVATE
 		) VALUES (
 		    (SELECT NVL(MAX(BOARD_NUM), 0) + 1 FROM BOARD)
 		    , #{title}
 		    , #{content}
 		    , #{writer}
+		    , #{boardPw}
+		    , #{isPrivate}
+		   <!--  <choose>
+		    	<when test="boardPw != null">
+			, 'Y'
+		    	</when>
+		    	<otherwise>
 		    , 'N'
+		    	</otherwise>
+		    </choose> -->
 		)
 	</insert>
 	

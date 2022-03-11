@@ -6,8 +6,9 @@ function setPassword(){
 	
 	//체크됐을때
 	if(isChecked){
+		// ----------------------- 방법1 ----------------------------
 		//input 태그를 생성
-		const pwInput = document.createElement('input');//<input>
+		/*const pwInput = document.createElement('input');//<input>
 		pwInput.type = 'password';//<input type="password">
 		
 		//노드 추가 방법
@@ -21,11 +22,17 @@ function setPassword(){
 		//target.lastElementChild; -> 선택한 태그의 마지막 자식
 		//target.firstElementChild; -> 선택한 태그의 첫번째 자식
 		//target[0].insertBefore(pwInput, target[0].lastElementChild);
-		target[0].appendChild(pwInput);
+		target[0].appendChild(pwInput);*/
+		// --------------------- 방법1 끝!! -------------------------
+		
+		// ----------------------- 방법2 ----------------------------
+		const pwDiv = document.getElementById('pwDiv');
+		pwDiv.innerHTML = '<input type="password" name="boardPw">';
 		
 	}
 	else{
-		
+		const pwDiv = document.getElementById('pwDiv');
+		pwDiv.innerHTML = '';
 	}
 		
 }

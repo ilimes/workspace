@@ -33,7 +33,8 @@
 				</c:choose>
 			</div>
 			<div>
-				<div>비밀글 <input id="chk" type="checkbox" onclick="setPassword();"></div>
+				<div>비밀글 <input id="chk" name="isPrivate" type="checkbox" onclick="setPassword();" value="Y"></div>
+				<div id="pwDiv"></div>
 			</div>
 			<%-- <div>작성일 : <input type="date" name="createDate" value="${nowDate }" readonly="readonly"></div> --%>
 		</div>

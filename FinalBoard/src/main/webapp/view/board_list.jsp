@@ -62,7 +62,16 @@
 								<%-- <td>${board.boardNum } / ${status.index } / ${status.count }</td> --%>
 								<%-- <td>${list.size() - status.index }</td> --%>
 								<td>${board.boardNum }</td>
-								<td><a href="boardDetail.bo?boardNum=${board.boardNum }">${board.title }</a></td>
+								<td>
+									<c:choose>
+										<c:when test="${board.isPrivate eq 'Y' }">
+											<a href="privateBoard.bo?boardNum=${board.boardNum }"><img src="img/private.jpg" height="25" style="vertical-align: middle;"> ${board.title }</a>
+										</c:when>
+										<c:otherwise>
+											<a href="boardDetail.bo?boardNum=${board.boardNum }">${board.title }</a>
+										</c:otherwise>
+									</c:choose>
+								</td>
 								<td>${board.writer }</td>
 								<td>${board.createDate }</td>
 								<td>${board.readCnt }</td>

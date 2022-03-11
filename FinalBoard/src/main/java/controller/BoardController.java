@@ -97,11 +97,15 @@ public class BoardController extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			String writer = request.getParameter("writer");
+			String boardPw = request.getParameter("boardPw");
+			String isPrivate = request.getParameter("isPrivate");
 			
 			BoardDTO boardDTO = new BoardDTO();
 			boardDTO.setTitle(title);
 			boardDTO.setContent(content);
 			boardDTO.setWriter(writer);
+			boardDTO.setBoardPw(boardPw);
+			boardDTO.setIsPrivate(isPrivate != null ? "Y" : "N");
 			
 			boardService.insertBoard(boardDTO);
 			
@@ -178,6 +182,18 @@ public class BoardController extends HttpServlet {
 			
 			isRedirect = true;
 			path = "boardDetail.bo?boardNum=" + boardNum;
+		}
+		//비밀글 입력 페이지로 이동
+		else if(command.equals("/privateBoard.bo")) {
+			int boardNum = Integer.parseInt(request.getParameter("boardNum"));  
+
+			BoardDTO boardDTO = new BoardDTO();
+			boardDTO.setBoardNum(boardNum);
+			
+			BoardDTO result = boardService.selectBoardDetail(boardDTO);
+			
+			request.setAttribute("board", result);
+			contentPage = "private_board";
 		}
 		
 		request.setAttribute("contentPage", contentPage);
